@@ -1,0 +1,331 @@
+/* src/app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Krea-inspired dark color system */
+  --bg-base: #0a0a0f;
+  --bg-surface: #111118;
+  --bg-elevated: #1a1a28;
+  --bg-hover: #222234;
+  --bg-active: #2a2a40;
+
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.2);
+
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #475569;
+
+  --accent-purple: #a855f7;
+  --accent-purple-dim: rgba(168, 85, 247, 0.15);
+  --accent-purple-border: rgba(168, 85, 247, 0.4);
+
+  --success: #22c55e;
+  --warning: #eab308;
+  --error: #ef4444;
+  --running: #a855f7;
+
+  --node-bg: #13131f;
+  --node-border: rgba(255, 255, 255, 0.08);
+  --node-border-selected: rgba(168, 85, 247, 0.7);
+  --node-header-bg: rgba(255, 255, 255, 0.03);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: -apple-system, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+}
+
+/* ─── Scrollbars ────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ─── React Flow Overrides ──────────────────────────────────────────────── */
+.react-flow__background {
+  background-color: var(--bg-base) !important;
+}
+
+.react-flow__edge-path {
+  stroke: var(--accent-purple) !important;
+  stroke-width: 2px !important;
+}
+
+.react-flow__edge.animated .react-flow__edge-path {
+  stroke-dasharray: 5;
+  animation: dashdraw 0.5s linear infinite;
+}
+
+@keyframes dashdraw {
+  to {
+    stroke-dashoffset: -10;
+  }
+}
+
+.react-flow__handle {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  border: 2px solid var(--accent-purple) !important;
+  background: var(--bg-elevated) !important;
+  transition: all 0.15s ease;
+}
+
+.react-flow__handle:hover,
+.react-flow__handle.connectingfrom,
+.react-flow__handle.connectingto {
+  width: 14px !important;
+  height: 14px !important;
+  background: var(--accent-purple) !important;
+  box-shadow: 0 0 8px var(--accent-purple);
+}
+
+.react-flow__handle-right {
+  right: -6px !important;
+}
+
+.react-flow__handle-left {
+  left: -6px !important;
+}
+
+.react-flow__node.selected > div {
+  border-color: var(--node-border-selected) !important;
+  box-shadow: 0 0 0 1px var(--node-border-selected), 0 0 20px rgba(168, 85, 247, 0.15) !important;
+}
+
+.react-flow__minimap {
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+.react-flow__minimap-mask {
+  fill: rgba(168, 85, 247, 0.1) !important;
+}
+
+.react-flow__controls {
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+.react-flow__controls button {
+  background: transparent !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+  color: var(--text-secondary) !important;
+  transition: all 0.15s;
+}
+
+.react-flow__controls button:hover {
+  background: var(--bg-hover) !important;
+  color: var(--text-primary) !important;
+}
+
+.react-flow__controls button:last-child {
+  border-bottom: none !important;
+}
+
+/* ─── Pulsating Glow for Running Nodes ──────────────────────────────────── */
+@keyframes node-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.4), 0 0 20px rgba(168, 85, 247, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.1), 0 0 40px rgba(168, 85, 247, 0.4);
+  }
+}
+
+.node-running {
+  animation: node-pulse 1.5s ease-in-out infinite;
+  border-color: var(--accent-purple) !important;
+}
+
+/* ─── Node Base Styles ──────────────────────────────────────────────────── */
+.nf-node {
+  background: var(--node-bg);
+  border: 1px solid var(--node-border);
+  border-radius: 12px;
+  min-width: 260px;
+  max-width: 320px;
+  overflow: visible;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.nf-node:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.nf-node-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--node-header-bg);
+  border-bottom: 1px solid var(--border-subtle);
+  border-radius: 12px 12px 0 0;
+}
+
+.nf-node-body {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ─── Form Elements ─────────────────────────────────────────────────────── */
+.nf-input,
+.nf-textarea,
+.nf-select {
+  width: 100%;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-size: 12px;
+  padding: 6px 10px;
+  outline: none;
+  transition: border-color 0.15s;
+  font-family: inherit;
+  resize: none;
+}
+
+.nf-input:focus,
+.nf-textarea:focus,
+.nf-select:focus {
+  border-color: var(--accent-purple-border);
+  background: var(--bg-active);
+}
+
+.nf-input:disabled,
+.nf-textarea:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.nf-label {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+/* ─── Sidebar ───────────────────────────────────────────────────────────── */
+.nf-sidebar {
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border-subtle);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.2s ease;
+  overflow: hidden;
+}
+
+.nf-history-panel {
+  background: var(--bg-surface);
+  border-left: 1px solid var(--border-subtle);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ─── Utility ───────────────────────────────────────────────────────────── */
+.nf-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.nf-badge-success {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--success);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.nf-badge-error {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--error);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.nf-badge-running {
+  background: rgba(168, 85, 247, 0.15);
+  color: var(--running);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.nf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.nf-btn-primary {
+  background: var(--accent-purple);
+  color: white;
+  border-color: var(--accent-purple);
+}
+
+.nf-btn-primary:hover:not(:disabled) {
+  background: #9333ea;
+  border-color: #9333ea;
+}
+
+.nf-btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: var(--border-default);
+}
+
+.nf-btn-ghost:hover:not(:disabled) {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.nf-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
