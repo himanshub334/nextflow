@@ -1,4 +1,12 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/history/[runId]/route": "app/api/history/[runId]/route.js",
+  "/api/history/route": "app/api/history/route.js",
+  "/api/workflows/route": "app/api/workflows/route.js",
+  "/api/workflows/[id]/route": "app/api/workflows/[id]/route.js",
+  "/api/workflows/run/route": "app/api/workflows/run/route.js",
   "/page": "app/page.js",
+  "/sign-in/[[...sign-in]]/page": "app/sign-in/[[...sign-in]]/page.js",
+  "/sign-up/[[...sign-up]]/page": "app/sign-up/[[...sign-up]]/page.js",
   "/workflow/page": "app/workflow/page.js"
 }
